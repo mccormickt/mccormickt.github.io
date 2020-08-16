@@ -1,0 +1,6 @@
+[book]
+authors = ["Tommy McCormick"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Jan0ski's Security Blog"
