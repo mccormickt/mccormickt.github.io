@@ -166,9 +166,9 @@
 <hr />
 <h2><a class="header" href="#-ls-" id="-ls-"><code>$ ls ./</code></a></h2>
 <ul>
-<li><a href="./golang/index.html">Offensive Go</a></li>
-<li><a href="./cloudsec/index.html">Cloud Security</a></li>
-<li><a href="./ctf/index.html">CTF Write-ups</a></li>
+<li><a href="./golang/rev-shell.html">Offensive Go</a></li>
+<li><a href="">Cloud Security</a></li>
+<li><a href="">CTF Write-ups</a></li>
 </ul>
 <h1><a class="header" href="#reverse-shell" id="reverse-shell">Reverse Shell</a></h1>
 <blockquote>
@@ -286,7 +286,6 @@ After the payload is copied in, we can execute it with <code>syscall.Syscall()</
  - Orientation: 1
 ... snip ...
 </code></pre>
-<hr />
 <h2><a class="header" href="#designing-the-fuzzer" id="designing-the-fuzzer">Designing the Fuzzer</a></h2>
 <p>Fuzzing in general is all about rapidly varying the inputs of an application. In this case, all the data we have to manipulate is the contents of our input file. Randomly chaning individual bytes or patterns in the input file is bound to produce some unexpected results. This means our fuzzer will need to perform the following actions:</p>
 <ul>
@@ -322,10 +321,9 @@ func createNew(data []byte) {
     check(err)
 }
 </code></pre>
-<hr />
 <h2><a class="header" href="#input-file-mutation" id="input-file-mutation">Input File Mutation</a></h2>
-<p>###The Bit Flip
-An easy way to change input data is a simple bit flip. To implement this, I decided I would randomly select a percentage of the bytes in the file, and of that subset I'd change a byte randomly. This is slightly different than changing a singular bit randomly throughout the file, however I felt it achieved generally the same effect.</p>
+<h3><a class="header" href="#the-bit-flip" id="the-bit-flip">The Bit Flip</a></h3>
+<p>An easy way to change input data is a simple bit flip. To implement this, I decided I would randomly select a percentage of the bytes in the file, and of that subset I'd change a byte randomly. This is slightly different than changing a singular bit randomly throughout the file, however I felt it achieved generally the same effect.</p>
 <p>To begin we'll need to select bytes at random, keeping track of their indexes in the input byte slice. We subtract 4 bytes off of the the file length to account for the <code>FF D8 FF DB</code> jpg file header.</p>
 <pre><code class="language-go">var byteIndexes []int
 numBytes := int(float64(len(data)-4) * .01)
@@ -345,7 +343,6 @@ fmt.Println(&quot;Indexes chosen: &quot;, byteIndexes)
     }
     return data
 </code></pre>
-<hr />
 <h3><a class="header" href="#getting-more-sophisticated---magic-numbers" id="getting-more-sophisticated---magic-numbers">Getting More Sophisticated - Magic Numbers</a></h3>
 <p>Since I generally don't know what I'm doing, I tend to read many blogs and watch technology streams to discover techniques in areas that I'm unfamiliar with - like Fuzzing! <a href="https://twitter.com/gynvael">Gynvael's YouTube channel</a> has loads of resources on fuzzing and is a great resource for learning more. In his intro to fuzzing stream, he mentions &quot;Magic Numbers&quot; in files that are ripe for manipulation.</p>
 <p>The numbers are chosen based on the propensity for errors like integer underflow or overflow to result from changing their values.</p>
@@ -381,7 +378,150 @@ magicVals := [][]int{
 pickedMagic := magicVals[rand.Intn(len(magicVals))]
 index := rand.Intn(len(data) - 8)
 </code></pre>
+<p>We'll then just hard-code our values into a switch statement to change the input data according to the value selected:</p>
+<pre><code class="language-go">// Hardcode byte overwrites for tuples beginning with (1, )
+    if pickedMagic[0] == 1 {
+        switch pickedMagic[1] {
+        case 255:
+            data[index] = 255
+        case 127:
+            data[index+1] = 127
+        case 0:
+            data[index] = 0
+        }
+        // Hardcode byte overwrites for tuples beginning with (2, )
+        } else if pickedMagic[0] == 2 {
+            switch pickedMagic[1] {
+        case 255:
+            data[index] = 255
+            data[index+1] = 255
+        case 0:
+            data[index] = 0
+            data[index+1] = 0
+        }
+        // Hardcode byte overwrites for tuples beginning with (4, )
+        } else if pickedMagic[0] == 4 {
+            switch pickedMagic[1] {
+            case 255:
+                data[index] = 255
+                data[index+1] = 255
+                data[index+2] = 255
+                data[index+3] = 255
+            case 0:
+                data[index] = 0
+                data[index+1] = 0
+                data[index+2] = 0
+                data[index+3] = 0
+            case 128:
+                data[index] = 128
+                data[index+1] = 0
+                data[index+2] = 0
+                data[index+3] = 0
+            case 64:
+                data[index] = 64
+                data[index+1] = 0
+                data[index+2] = 0
+                data[index+3] = 0
+            case 127:
+                data[index] = 127
+                data[index+1] = 255
+                data[index+2] = 255
+                data[index+3] = 255
+            }
+    }
+    return data
+}
+</code></pre>
+<h2><a class="header" href="#randomize-mutations" id="randomize-mutations">Randomize Mutations</a></h2>
+<p>To round out our mutation routines, and because our bit flipper isn't entirely obsolete (or at least I like to think it isn't), we can create one last wrapper function for mutating data. This wrapper will randomize our choice of mutator between the <code>mutateMagic</code> and <code>mutateBits</code> techniques.</p>
+<pre><code class="language-go">// Select mutator at random to mutate `data`
+func mutate(data []byte) []byte {
+    mutators := []func([]byte) []byte{mutateBits, mutateMagic}
+    return mutators[rand.Intn(len(mutators))](data)
+}
+</code></pre>
 <hr />
+<h2><a class="header" href="#writing-the-fuzzing-harness" id="writing-the-fuzzing-harness">Writing the Fuzzing Harness</a></h2>
+<p>Now for the real meat of the fuzzer. We need to feed the program our mutated file, and keep track of inputs that cause significant crashes. A significant crash in this case would be writing to memory outside of the range of the program, or a segmentation fault.</p>
+<p>To easily capture the error output of a faulting instance of <code>exif</code>, we wrap the command in a <code>bash -c</code> command, and execute it with Go using the <code>os/exec</code> package. We then direct the <code>stderr</code> from the command to our buffer to analyze the output.</p>
+<pre><code class="language-go">// Run command, capture output
+var output bytes.Buffer
+exifCommand := &quot;/bin/bash&quot;
+cmd := exec.Command(exifCommand, &quot;-c&quot;, &quot;./exif/bin/exif ./mutated.jpg -verbose&quot;)
+cmd.Stderr = &amp;output
+err := cmd.Start()
+check(err)
+</code></pre>
+<p>We make sure to include a counter value in our wrapper program so we can determine which run created which error. If we find an iteration has exited in error,  we check our error buffer for evidence of a segfault. When we find a segfault, write the input data as a jpg, labeled with the fuzzing iteration.</p>
+<pre><code class="language-go">// Write any crashes to file
+if err := cmd.Wait(); err != nil {
+    if exitError, ok := err.(*exec.ExitError); ok {
+        // Check if error is a segfault
+        if strings.Contains(exitError.String(), &quot;segmentation&quot;) {
+            // Write falt-causing `data` to jpg file, label with `counter`
+            fmt.Printf(&quot;%d - %s\n&quot;, counter, exitError)
+            err = ioutil.WriteFile(fmt.Sprintf(&quot;./crashes/crash.%d.jpg&quot;, counter), data, 0644)
+            check(err)
+        }
+    }
+}
+
+// Print `counter` as status updates
+if counter%100 == 0 {
+    fmt.Println(counter)
+}
+</code></pre>
+<h2><a class="header" href="#putting-it-all-together" id="putting-it-all-together">Putting it all Together</a></h2>
+<p>Now we're ready to create the main execution flow of our fuzzing routine. Looking back at what we set out to do, we see where each piece fits in:</p>
+<ul>
+<li>Read in the bytes of a file. ✔ <code>getBytes</code></li>
+<li>Manipulate the bytes of a file in various ways. ✔ <code>mutateMagic</code>, <code>mutateBits</code></li>
+<li>Save the new mutated file. ✔ <code>mutate</code></li>
+<li>Run the exif binary on the mutated file. ✔ <code>exif</code></li>
+<li>Detect interesting crashes of the program. ✔ <code>exif</code></li>
+<li>Save the output of these crashes to a file with a meaningful name. ✔ <code>exif</code></li>
+<li>Repeat many many times.</li>
+</ul>
+<p>Easy! All we need to do is run this through a loop and make it command-line ready with a <code>main</code> such as:</p>
+<pre><code class="language-go">func main() {
+    if len(os.Args) &lt; 2 {
+        fmt.Println(&quot;Usage: go exifFuzz.go &lt;valid_jpg&gt;&quot;)
+        os.Exit(1)
+    }
+
+    // Create mutated file
+    filename := os.Args[1]
+    for counter := 0; counter &lt; 100000; counter++ {
+    data := getBytes(filename)
+    mutated := mutate(data)
+    createNew(mutated)
+    exif(counter, mutated)
+    }
+}
+</code></pre>
+<p>Running our code gives us updates as it runs, and will start filling the crashes/ directory with jpg data that caused the program to segfault. As it executes iterations of the binary, you'll see it pick up some segfaults.</p>
+<pre><code>~/exifFuzz $ go build
+~/exifFuzz $ ./exifFuzz exif-samples/jpg/Canon_40D.jpg
+0
+19 - signal: segmentation fault
+65 - signal: segmentation fault
+66 - signal: segmentation fault
+... snip ...
+</code></pre>
+<p>Once our fuzzer is done, we can confirm the accuracy of our crash data by trying one out ourselves:</p>
+<pre><code>~/exifFuzz $ ./exif/bin/exif crashes/crash.2436.jpg
+Segmentation fault
+</code></pre>
+<h2><a class="header" href="#conclusion" id="conclusion">Conclusion</a></h2>
+<p>My experience with Go is that it is an extremely versatile and easy to learn language, with powerful low-level capabilities. Finding tools and solutions in one language and implementing them in Go is rather straightforward, and a great way to learn more, no what matter the source language is. This is a great example of a highly-documented use case that is a great exercise for learning a new language. This fuzzer can definitely be improved upon with <a href="https://tour.golang.org/concurrency/1">goroutines</a> for concurrency among many other optimizations for performance. We'll see what we can do in the future to implement concurrency into our fuzzer, or possibly implement it again in a more performant type-safe language such as Rust. Additionally, we could go down the route of exploitation, and explore ways of identifying vulnerabilities brought to light by our fuzzer.</p>
+<p>The full source of this lab can be found on my <a href="https://github.com/jan0ski/exifFuzz">Github</a>. It includes everything needed for the steps covered here (including a version for the win32 binary!).</p>
+<hr />
+<h2><a class="header" href="#references-1" id="references-1">References</a></h2>
+<ul>
+<li><a href="https://h0mbre.github.io/Fuzzing-Like-A-Caveman/#">h0mbre - Fuzzing Like A Caveman</a></li>
+<li><a href="https://github.com/jaybosamiya/security-notes#basics-of-fuzzing">jaybosamiya - Security Notes</a></li>
+<li><a href="https://www.youtube.com/channel/UCCkVMojdBWS-JtH7TliWkVg">Gynvael's Youtube Channel</a></li>
+</ul>
 
                     </main>
 
