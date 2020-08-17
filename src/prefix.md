@@ -6,9 +6,6 @@
 
 ## `$ ls ./`
 
-- [Offensive Go](./golang/index.md)
-- [Cloud Security](./cloudsec/index.md)
-- [CTF Write-ups](./ctf/index.md)
-
-
-
+- [Offensive Go](./golang/rev-shell.md)
+- [Cloud Security]()
+- [CTF Write-ups]()
