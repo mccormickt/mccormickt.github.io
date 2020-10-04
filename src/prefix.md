@@ -1,6 +1,6 @@
 ## A page to compile my journey through various experiments in security research and programming.
 
-### [ @jan0ski_](http://twitter.com/jan0ski_) | [ jan0ski](http://github.com/jan0ski/)
+### <i class="fa fa-twitter"></i>[ @jan0ski_](https://twitter.com/jan0ski_) | <i class="fa fa-github"></i>[ jan0ski](https://github.com/jan0ski/)
 
 ---
 
