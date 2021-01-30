@@ -246,13 +246,16 @@ func main() {
 <ul>
 <li>Used as a template Go file for the generator to include its encrypted shellcode and key.</li>
 <li>Decrypts shellcode with a given key and executes its memory via local code injection.</li>
-<li>Be sure to set GOARCH to 32 or 64-bit depending on your payload when using msfvenom shellcode.</li>
 </ul>
-<p>Linux / Darwin</p>
-<pre><code class="language-bash">$ GOOS=windows GOARCH=386 go build encrypted_shellcode.go
-</code></pre>
-<p>Windows</p>
-<pre><code class="language-powershell">PS C:\&gt; $Env:GOARCH=386; go build encrypted_shellcode.go
+<blockquote>
+<p><i class="fa fa-info-circle fa-lg"></i>
+Be sure to set GOARCH to 32 or 64-bit depending on your payload when using msfvenom shellcode.</p>
+</blockquote>
+<pre><code># Linux / Darwin
+$ GOOS=windows GOARCH=386 go build encrypted_shellcode.go
+
+# Windows
+PS C:\&gt; $Env:GOARCH=386; go build encrypted_shellcode.go
 </code></pre>
 <p>Encrypted Shellcode Template</p>
 <pre><code class="language-go">package main

