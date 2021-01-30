@@ -18,14 +18,15 @@ Usage:</br>
 ## The Payload Template
 * Used as a template Go file for the generator to include its encrypted shellcode and key.
 * Decrypts shellcode with a given key and executes its memory via local code injection.
-* Be sure to set GOARCH to 32 or 64-bit depending on your payload when using msfvenom shellcode.
 
-Linux / Darwin
-```bash
-$ GOOS=windows GOARCH=386 go build encrypted_shellcode.go
+> <i class="fa fa-info-circle fa-lg"></i>
+Be sure to set GOARCH to 32 or 64-bit depending on your payload when using msfvenom shellcode.
+
 ```
-Windows
-```powershell
+# Linux / Darwin
+$ GOOS=windows GOARCH=386 go build encrypted_shellcode.go
+
+# Windows
 PS C:\> $Env:GOARCH=386; go build encrypted_shellcode.go
 ```
 

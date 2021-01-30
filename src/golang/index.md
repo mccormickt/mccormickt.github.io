@@ -1,11 +1,9 @@
 # Offensive Go
 
-## Reverse Shell
+## Code 
 * [Reverse Shell](./rev-shell.md)
-
-## Code Injection
 * [Local Shellcode Injection](./code-injection.md)
-* [Encrypted Paylod Generator](./encrypted-generator.md)
+* [Encrypted Payload Generator](./encrypted-generator.md)
 
-## Exif Parser Fuzzing
+## Fuzzing
 * [Exif Parser Fuzzing](./exif-fuzz.md)
