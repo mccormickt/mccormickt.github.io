@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install and Build
-        uses: peaceiris/actions-mdbook@1
+        uses: peaceiris/actions-mdbook@v1
         with:
           mdbook-version: 'latest'
 
@@ -23,3 +23,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./book
+          cname: blog.jan0ski.net
