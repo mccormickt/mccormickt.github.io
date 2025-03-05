@@ -6,7 +6,7 @@ language = "en"
 [output.html]
 default-theme = "navy"
 copy-fonts = true
-git-repository-url="https://github.com/jan0ski/jan0ski.github.io"
+git-repository-url = "https://github.com/mccormickt/mccormickt.github.io"
 
 [output.html.search]
 enable = true
