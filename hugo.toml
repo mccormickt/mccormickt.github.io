@@ -1,0 +1,90 @@
+baseURL = 'https://blog.jan0ski.net/'
+languageCode = 'en-us'
+title = "Jan0ski's Security Blog"
+author = 'Tommy McCormick'
+theme = 'risotto'
+
+# Generate a nice robots.txt for SEO
+enableRobotsTXT = true
+sectionPagesMenu = 'main'
+
+[pagination]
+# Number of pages to include in the paginator
+# before and after the current page
+pagerSize = 3
+
+[params.about]
+title = "Tommy McCormick"
+description = "cloud native security, go, & rust"
+
+[params.theme]
+palette = "base16-dark"
+
+# Sidebar: about/bio
+## Sidebar: social links
+[[params.socialLinks]]
+icon = "fa-brands fa-github"
+title = "GitHub"
+url = "https://github.com/mccormickt"
+
+[[params.socialLinks]]
+icon = "fa-solid fa-envelope"
+title = "Email"
+url = "mailto:mccormickt9@gmail.com"
+
+[[params.socialLinks]]
+icon = "fa-brands fa-square-bluesky"
+title = "Bluesky"
+url = "https://bsky.app/profile/jan0ski.net"
+
+[menu]
+
+[[menu.main]]
+identifier = "about"
+name = "About"
+url = "/about/"
+weight = 10
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+
+# For hugo >= 0.60.0, enable inline HTML
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup]
+
+# Table of contents
+# Add toc = true to content front matter to enable
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 3
+ordered = true
+
+[privacy]
+
+[privacy.vimeo]
+disabled = false
+simple = true
+
+[privacy.x]
+disabled = false
+enableDNT = true
+simple = true
+
+[privacy.instagram]
+disabled = false
+simple = true
+
+[privacy.youtube]
+disabled = false
+privacyEnhanced = true
+
+[services]
+
+[services.instagram]
+disableInlineCSS = true
+
+[services.x]
+disableInlineCSS = true

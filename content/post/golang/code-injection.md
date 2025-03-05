@@ -1,4 +1,9 @@
-# Code Injection
++++
+date = '2025-03-04T21:55:26-05:00'
+draft = true
+title = 'Code Injection'
++++
+
 Example of injecting shellcode into a local process.
 
 ---
@@ -52,5 +57,3 @@ Since the msfvenom shellcode is 32-bit, we set the GOARCH environment variable a
 - [CreateRemoteThread Shellcode Injection](https://ired.team/offensive-security/code-injection-process-injection/process-injection)
 - [Using Go to Call the Windows API](https://medium.com/jettech/breaking-all-the-rules-using-go-to-call-windows-api-2cbfd8c79724)
 - [VirtualAlloc function - Win32 apps](https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc?redirectedfrom=MSDN)
-
-

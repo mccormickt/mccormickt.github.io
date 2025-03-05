@@ -1,18 +1,23 @@
-# Encrypted Shellcode Injection 
++++
+date = '2025-03-04T21:55:26-05:00'
+draft = true
+title = 'Encrypted Shellcode Injection'
++++
+
 A tool to generate go source code to compile payloads utilizing encrypted shellcode injection. To be used with a template Go file to execute the encrypted shellcode.
 
 ---
 
 ## Encrypted Payload Generator
 * Generate shellcode with msfvenom or other tools.
-* Encrypt it using AES-256. 
-* Place the key and the encrypted shellcode into a template Go file. 
+* Encrypt it using AES-256.
+* Place the key and the encrypted shellcode into a template Go file.
 
 Usage:</br>
 `$ go run encrypted_payload_creator.go > payload.go`
 
 ```go
-{{#include ../code/encrypted_payload_creator.go}}
+{{#include ../../assets/code/encrypted_payload_creator.go}}
 ```
 
 ## The Payload Template
@@ -32,7 +37,7 @@ PS C:\> $Env:GOARCH=386; go build encrypted_shellcode.go
 
 Encrypted Shellcode Template
 ```go
-{{#include ../code/encrypted_shellcode_template.go}}
+{{#include ../../assets/code/encrypted_shellcode_template.go}}
 ```
 
 ---

@@ -1,4 +1,9 @@
-# Exif Parser Fuzzing
++++
+date = '2025-03-04T21:55:26-05:00'
+draft = true
+title = 'Exif Parser Fuzzing'
++++
+
 Writing a custom fuzzer for an exif parser using Go.
 
 ---
@@ -297,4 +302,3 @@ The full source of this lab can be found on my [Github](https://github.com/jan0s
 - [h0mbre - Fuzzing Like A Caveman](https://h0mbre.github.io/Fuzzing-Like-A-Caveman/#)
 - [jaybosamiya - Security Notes](https://github.com/jaybosamiya/security-notes#basics-of-fuzzing)
 - [Gynvael's Youtube Channel](https://www.youtube.com/channel/UCCkVMojdBWS-JtH7TliWkVg)
-
