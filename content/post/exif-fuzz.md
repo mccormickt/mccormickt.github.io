@@ -2,12 +2,9 @@
 date = '2020-04-16T21:19:00-05:00'
 draft = false
 title = 'Exif Parser Fuzzing'
-tags = ['golang', 'fuzzing', 'security']
+tags = ['golang', 'security']
+summary = 'Writing a custom fuzzer for an exif parser using Go.'
 +++
-
-Writing a custom fuzzer for an exif parser using Go.
-
----
 
 ## Easy Fuzzing Target
 A light google search of common fuzzing targets implemented in memory-unsafe languages such as C leads me to find [this](https://github.com/mkttanabe/exif/) repo. It's a great, simple implementation of an exif parser and will work perfectly for our purposes.

@@ -1,8 +1,8 @@
 baseURL = 'https://blog.jan0ski.net/'
 languageCode = 'en-us'
-title = "Jan0ski's Security Blog"
-author = 'Tommy McCormick'
+title = "blog.jan0ski.net"
 theme = 'risotto'
+copyright = '© Tommy McCormick'
 
 # Generate a nice robots.txt for SEO
 enableRobotsTXT = true
@@ -12,6 +12,10 @@ sectionPagesMenu = 'main'
 # Number of pages to include in the paginator
 # before and after the current page
 pagerSize = 3
+
+[params.author]
+name = "Tommy McCormick"
+email = "mccormickt9@gmail.com"
 
 [params.about]
 title = "Tommy McCormick"
@@ -33,16 +37,16 @@ title = "Email"
 url = "mailto:mccormickt9@gmail.com"
 
 [[params.socialLinks]]
-icon = "fa-brands fa-square-bluesky"
+icon = "fa-brands fa-bluesky"
 title = "Bluesky"
 url = "https://bsky.app/profile/jan0ski.net"
 
 [menu]
 
 [[menu.main]]
-identifier = "about"
-name = "About"
-url = "/about/"
+identifier = "home"
+name = "Home"
+url = "/"
 weight = 10
 
 [taxonomies]

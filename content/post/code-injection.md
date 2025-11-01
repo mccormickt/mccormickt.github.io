@@ -2,12 +2,9 @@
 date = '2021-01-29T20:18:02-05:00'
 draft = false
 title = 'Code Injection'
-tags = ['golang', 'offensive', 'malware']
+tags = ['golang', 'security']
+summary = 'Example of injecting shellcode into a local process.'
 +++
-
-Example of injecting shellcode into a local process.
-
----
 
 ## Calling the Windows API
 To call the Windows API in Go, we need to use the `syscall` library to load `kernel32.dll` and create references to the functions we need to use. Additionally, we'll create some constants reflecting those that exist in the Windows API.

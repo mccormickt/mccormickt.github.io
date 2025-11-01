@@ -5,14 +5,9 @@ details {
   margin: 1em 0;
 }
 
-/* Ensure spacing after collapsible code in post summaries */
-.post__summary details {
-  margin-bottom: 2em;
-}
-
 /* Ensure spacing between posts */
 article.post {
-  margin-bottom: 4em;
+  margin-bottom: 2em;
   padding-bottom: 2em;
   border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
 }
@@ -49,4 +44,15 @@ details .highlight {
 details .highlight pre {
   margin: 0;
   border-radius: 0 0 4px 4px;
+}
+
+/* Tag hover effect */
+.tag:hover,
+.sidebar-tag:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* Add spacing below post summary */
+.post__summary {
+  margin-bottom: 1em;
 }

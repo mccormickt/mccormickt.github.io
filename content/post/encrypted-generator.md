@@ -2,12 +2,9 @@
 date = '2021-01-29T10:18:02-05:00'
 draft = false
 title = 'Encrypted Shellcode Injection'
-tags = ['golang', 'offensive', 'cryptography']
+tags = ['golang', 'security']
+summary = 'A tool to generate go source code to compile payloads utilizing encrypted shellcode injection.'
 +++
-
-A tool to generate go source code to compile payloads utilizing encrypted shellcode injection. To be used with a template Go file to execute the encrypted shellcode.
-
----
 
 ## Encrypted Payload Generator
 * Generate shellcode with msfvenom or other tools.
