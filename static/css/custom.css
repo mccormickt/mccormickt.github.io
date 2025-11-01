@@ -56,3 +56,54 @@ details .highlight pre {
 .post__summary {
   margin-bottom: 1em;
 }
+
+/* Add spacing below page title */
+.content__header {
+  margin-bottom: 2em;
+}
+
+/* Pagination styling for Hugo's internal template */
+.pagination {
+  margin-top: 3em;
+  text-align: center;
+}
+
+.pagination ul {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block;
+  padding: 0.3em 0.6em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+  line-height: 1;
+}
+
+.pagination a:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.pagination .active span {
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+}
+
+.pagination .disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -9,9 +9,7 @@ enableRobotsTXT = true
 sectionPagesMenu = 'main'
 
 [pagination]
-# Number of pages to include in the paginator
-# before and after the current page
-pagerSize = 3
+pagerSize = 5
 
 [params.author]
 name = "Tommy McCormick"
