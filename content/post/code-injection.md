@@ -1,7 +1,8 @@
 +++
-date = '2025-03-04T21:55:26-05:00'
-draft = true
+date = '2021-01-29T20:18:02-05:00'
+draft = false
 title = 'Code Injection'
+tags = ['golang', 'offensive', 'malware']
 +++
 
 Example of injecting shellcode into a local process.
@@ -13,9 +14,7 @@ To call the Windows API in Go, we need to use the `syscall` library to load `ker
 
 For shellcode injection, the `VirtualAlloc` Windows function is used to allocate memory in our process to store the payload.
 
-```go
-{{#include ../code/shellcode_injection.go:9:19}}
-```
+{{< include "shellcode_injection.go" "9:19" >}}
 ---
 
 ## Allocating memory and calling VirtualAlloc
@@ -32,18 +31,14 @@ LPVOID VirtualAlloc(
 ```
 
 Go
-```go
-{{#include ../code/shellcode_injection.go:25:31}}
-```
+{{< include "shellcode_injection.go" "25:31" >}}
 
 Next, we write our shellcode into the allocated memory and execute it via a `syscall` at that memory address.
 
 To copy the shellcode, we create a pointer reference to our allocated memory, `addr`, and cast it as a pointer to a large byte array.
 After the payload is copied in, we can execute it with `syscall.Syscall()`, passing in our shellcode starting address:
 
-```go
-{{#include ../code/shellcode_injection.go:36:42}}
-```
+{{< include "shellcode_injection.go" "36:42" >}}
 
 Since the msfvenom shellcode is 32-bit, we set the GOARCH environment variable accordingly to compile into a 32-bit executable. If all goes well, building and executing the source should show our shellcode is executed:
 

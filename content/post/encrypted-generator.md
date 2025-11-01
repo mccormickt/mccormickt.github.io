@@ -1,7 +1,8 @@
 +++
-date = '2025-03-04T21:55:26-05:00'
-draft = true
+date = '2021-01-29T10:18:02-05:00'
+draft = false
 title = 'Encrypted Shellcode Injection'
+tags = ['golang', 'offensive', 'cryptography']
 +++
 
 A tool to generate go source code to compile payloads utilizing encrypted shellcode injection. To be used with a template Go file to execute the encrypted shellcode.
@@ -16,9 +17,7 @@ A tool to generate go source code to compile payloads utilizing encrypted shellc
 Usage:</br>
 `$ go run encrypted_payload_creator.go > payload.go`
 
-```go
-{{#include ../../assets/code/encrypted_payload_creator.go}}
-```
+{{< include "encrypted_payload_creator.go" >}}
 
 ## The Payload Template
 * Used as a template Go file for the generator to include its encrypted shellcode and key.
@@ -36,9 +35,7 @@ PS C:\> $Env:GOARCH=386; go build encrypted_shellcode.go
 ```
 
 Encrypted Shellcode Template
-```go
-{{#include ../../assets/code/encrypted_shellcode_template.go}}
-```
+{{< include "encrypted_shellcode_template.go" >}}
 
 ---
 

@@ -1,0 +1,52 @@
+/* Collapsible code snippets */
+details {
+  border: 1px solid var(--border-color, #444);
+  border-radius: 4px;
+  margin: 1em 0;
+}
+
+/* Ensure spacing after collapsible code in post summaries */
+.post__summary details {
+  margin-bottom: 2em;
+}
+
+/* Ensure spacing between posts */
+article.post {
+  margin-bottom: 4em;
+  padding-bottom: 2em;
+  border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+}
+
+article.post:last-child {
+  border-bottom: none;
+}
+
+details summary {
+  cursor: pointer;
+  padding: 0.75em 1em;
+  background-color: var(--summary-bg, rgba(255, 255, 255, 0.05));
+  font-weight: 500;
+  user-select: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+details summary:hover {
+  background-color: var(--summary-hover-bg, rgba(255, 255, 255, 0.1));
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--border-color, #444);
+  border-radius: 4px 4px 0 0;
+  margin-bottom: 0;
+}
+
+details .highlight {
+  margin: 0;
+  border-radius: 0 0 4px 4px;
+}
+
+details .highlight pre {
+  margin: 0;
+  border-radius: 0 0 4px 4px;
+}

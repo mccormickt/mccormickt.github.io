@@ -1,13 +1,15 @@
 +++
-date = '2025-03-04T21:55:26-05:00'
-draft = true
+date = '2021-01-29T20:17:02-05:00'
+draft = false
 title = 'Reverse Shell'
+tags = ['golang', 'offensive', 'malware']
 +++
+
+A simple reverse shell implementation in Go that establishes a connection to a remote host and provides shell access across different operating systems (Windows, Linux, macOS).
 
 > <i class="fa fa-info-circle fa-lg"></i>
 To create a binary for a specific operating system or architecture, set the `GOOS` and `GOARCH` environment variables before running the `go build` command.<br/><br/>
 `$ GOOS=$target_os GOARCH=$target_arch go build reverse_shell.go`
 
-```go
-{{#include ../../assets/code/reverse_shell.go}}
-```
+{{< include "reverse_shell.go" >}}
+

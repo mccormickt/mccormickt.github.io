@@ -1,7 +1,8 @@
 +++
-date = '2025-03-04T21:55:26-05:00'
-draft = true
+date = '2020-04-16T21:19:00-05:00'
+draft = false
 title = 'Exif Parser Fuzzing'
+tags = ['golang', 'fuzzing', 'security']
 +++
 
 Writing a custom fuzzer for an exif parser using Go.

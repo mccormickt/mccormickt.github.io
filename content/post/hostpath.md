@@ -1,7 +1,8 @@
 +++
-date = '2025-03-04T21:55:26-05:00'
-draft = true
+date = '2021-01-29T22:10:24-05:00'
+draft = false
 title = 'HostPath'
+tags = ['kubernetes', 'containers', 'security']
 +++
 
 Abusing HostPath to escape containers.

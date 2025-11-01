@@ -1,0 +1,33 @@
+{{- $path := .Get 0 -}}
+{{- $lines := .Get 1 -}}
+{{- $file := readFile (printf "assets/code/%s" $path) -}}
+{{- $lang := "go" -}}
+{{- $collapseThreshold := 20 -}}
+
+{{- $content := "" -}}
+{{- $lineCount := 0 -}}
+
+{{- if $lines -}}
+  {{- $parts := split $lines ":" -}}
+  {{- $start := sub (int (index $parts 0)) 1 -}}
+  {{- $end := int (index $parts 1) -}}
+  {{- $allLines := split $file "\n" -}}
+  {{- $selectedLines := after $start $allLines -}}
+  {{- $selectedLines = first (sub $end $start) $selectedLines -}}
+  {{- $content = delimit $selectedLines "\n" -}}
+  {{- $lineCount = len $selectedLines -}}
+{{- else -}}
+  {{- $content = $file -}}
+  {{- $lineCount = len (split $file "\n") -}}
+{{- end -}}
+
+{{- $highlighted := highlight $content $lang "" -}}
+
+{{- if ge $lineCount $collapseThreshold -}}
+<details>
+  <summary>{{ $path }} ({{ $lineCount }} lines)</summary>
+  {{ $highlighted }}
+</details>
+{{- else -}}
+  {{ $highlighted }}
+{{- end }}
