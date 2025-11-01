@@ -1,0 +1,58 @@
+{{ define "main" }}
+    <header class="content__header">
+        <h1>{{ .Title | markdownify }}</h1>
+        {{ .Content }}
+    </header>
+
+    {{ range .Paginator.Pages }}
+    <article class="post">
+
+        <header class="post__header">
+            <h1><a href="{{ .Permalink }}">{{ .Title | markdownify }}</a></h1>
+            <p class="post__meta">
+                {{ if .Params.author }}{{ .Params.author }}, {{ end }}
+                <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+            </p>
+        </header>
+
+        <section class="post__summary">
+            {{ .Summary }}
+        </section>
+
+        {{ if .Params.tags }}
+        <span class="post__tags">
+            {{ range .Params.tags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+            {{ end }}
+        </span>
+        {{ end }}
+
+    </article>
+    {{ end }}
+
+    {{ template "_internal/pagination.html" . }}
+{{ end }}
+
+{{define "aside" }}
+    {{ if .Params.description }}
+    <p>{{ .Params.description }}</p>
+    <hr>
+    {{ end }}
+
+    {{ $tags := slice }}
+    {{ range .Pages }}
+        {{ range .Params.tags }}
+            {{ $tags = $tags | append . }}
+        {{ end }}
+    {{ end }}
+    {{ $uniqueTags := uniq $tags }}
+
+    {{ if $uniqueTags }}
+    <h3>Tags</h3>
+    <div class="sidebar-tags">
+        {{ range sort $uniqueTags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="sidebar-tag">{{ . }}</a>
+        {{ end }}
+    </div>
+    {{ end }}
+{{ end }}

