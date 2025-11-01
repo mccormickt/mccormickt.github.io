@@ -11,6 +11,9 @@ sectionPagesMenu = 'main'
 [pagination]
 pagerSize = 5
 
+[params]
+description = "Tommy McCormick's blog on infrastructure, security, Go, and Rust."
+
 [params.author]
 name = "Tommy McCormick"
 email = "mccormickt9@gmail.com"
