@@ -3,7 +3,7 @@ date = '2020-04-16T21:19:00-05:00'
 draft = false
 title = 'Exif Parser Fuzzing'
 tags = ['golang', 'security']
-summary = 'Writing a custom fuzzer for an exif parser using Go.'
+description = 'Writing a custom fuzzer for an exif parser using Go.'
 +++
 
 ## Easy Fuzzing Target

@@ -3,7 +3,7 @@ date = '2021-01-29T20:18:02-05:00'
 draft = false
 title = 'Code Injection'
 tags = ['golang', 'security']
-summary = 'Example of injecting shellcode into a local process.'
+description = 'Example of injecting shellcode into a local process.'
 +++
 
 ## Calling the Windows API

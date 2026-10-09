@@ -3,7 +3,7 @@ date = '2021-01-29T22:10:24-05:00'
 draft = false
 title = 'HostPath'
 tags = ['kubernetes', 'containers', 'security']
-summary = 'Abusing HostPath to escape containers.'
+description = 'Abusing HostPath to escape containers.'
 +++
 
 ## Mounting Root Volumes Inside Containers

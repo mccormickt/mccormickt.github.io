@@ -3,7 +3,7 @@ date = '2021-01-29T20:17:02-05:00'
 draft = false
 title = 'Reverse Shell'
 tags = ['golang', 'security']
-summary = 'A simple reverse shell implementation in Go that establishes a connection to a remote host and provides shell access across different operating systems.'
+description = 'A simple reverse shell implementation in Go that establishes a connection to a remote host and provides shell access across different operating systems.'
 +++
 
 > <i class="fa fa-info-circle fa-lg"></i>
