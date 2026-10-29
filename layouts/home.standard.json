@@ -1,0 +1,26 @@
+{{- $config := .Site.Params.standard -}}
+{{- $publicationURI := printf "at://%s/site.standard.publication/%s" $config.did $config.publicationKey -}}
+{{- $verification := resources.FromString ".well-known/site.standard.publication" $publicationURI -}}
+{{- $noop := $verification.Publish -}}
+{{- $publication := dict
+  "$type" "site.standard.publication"
+  "url" (strings.TrimSuffix "/" .Site.BaseURL)
+  "name" .Site.Title
+  "description" .Site.Params.description
+  "preferences" (dict "showInDiscover" true)
+-}}
+{{- $records := slice (dict "collection" "site.standard.publication" "rkey" $config.publicationKey "record" $publication) -}}
+{{- range where .Site.RegularPages "Section" "post" -}}
+  {{- $document := dict
+    "$type" "site.standard.document"
+    "site" $publicationURI
+    "path" .RelPermalink
+    "title" .Title
+    "description" (.Description | default .Summary | plainify)
+    "textContent" .Plain
+    "publishedAt" (.Date.UTC.Format "2006-01-02T15:04:05Z")
+    "tags" (.Params.tags | default slice)
+  -}}
+  {{- $records = $records | append (dict "collection" "site.standard.document" "rkey" (sha256 .Permalink) "record" $document) -}}
+{{- end -}}
+{{- dict "did" $config.did "records" $records | jsonify -}}

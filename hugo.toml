@@ -14,6 +14,19 @@ pagerSize = 5
 [params]
 description = "Tommy McCormick's blog on infrastructure, security, Go, and Rust."
 
+[params.standard]
+did = 'did:plc:mfolp7m237wqh3mrtjpsvbxm'
+publicationKey = 'blog.jan0ski.net'
+
+[outputs]
+home = ['HTML', 'RSS', 'Standard']
+
+[outputFormats.Standard]
+mediaType = 'application/json'
+baseName = 'standard'
+isPlainText = true
+notAlternative = true
+
 [params.author]
 name = "Tommy McCormick"
 email = "mccormickt9@gmail.com"

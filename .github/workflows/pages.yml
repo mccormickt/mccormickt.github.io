@@ -29,8 +29,18 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v4
 
+      - name: Test Standard.site integration
+        run: python3 -m unittest discover -s tests
+
       - name: Build with Hugo
-        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: hugo --minify
+
+      - name: Upload Standard.site records
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: standard-site
+          path: public/standard.json
 
       - name: Upload artifact
         if: github.event_name != 'pull_request'
@@ -52,3 +62,27 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  sync-standard-site:
+    needs: deploy
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Standard.site records
+        uses: actions/download-artifact@v4
+        with:
+          name: standard-site
+
+      - name: Publish Standard.site records
+        env:
+          ATPROTO_APP_PASSWORD: ${{ secrets.ATPROTO_APP_PASSWORD }}
+        run: |
+          if [ -z "$ATPROTO_APP_PASSWORD" ]; then
+            echo "::notice::Standard.site sync is disabled. Set the ATPROTO_APP_PASSWORD repository secret to enable it."
+            exit 0
+          fi
+          python3 scripts/sync-standard-site.py standard.json --publish
